@@ -13,4 +13,26 @@ Large programs are often compiled in pieces, so the relocatable machine code may
 The analysis part breaks up the source program into constituent pieces and imposes a grammatical structure on them. The analysis part reports on errors, also collects information about the source program and stores it in a data structure called a symbol table, which is passed along with the intermediate representation to the synthesis part.
 The synthesis part constructs the desired target program from the intermediate representation and the information in the symbol table. The analysis part is often called the front end of the compiler; the synthesis part is the back end.
 
+![Compiler Phases](https://raw.githubusercontent.com/picsart-academy/Programming-Language-General-Concepts/main/Lesson%201.%20Compilation/compiler.png)
 
+## Lexical Analysis
+
+The first phase of a compiler is called lexical analysis or scanning. The lexical analyzer reads the stream of characters making up the source program and groups the characters into meaningful sequences called lexemes. For each lexeme, the lexical analyzer produces as output a token of the form `<token-name, attribute-value>`
+that it passes on to the subsequent phase, syntax analysis. 
+
+In the token, the first component `token-name` is an abstract smbol that is used during syntax analysis, and the second component `attribute-value` points to an entry in the symbol table for this token. Information from the symbol table entry is needed for semantic analysis and code generation. 
+
+For example, for the following source
+```
+position = initial + rate * 60
+```
+we get 
+```
+<id, 1> <=> <id, 2> <+> <id, 3> <*> <60>
+```
+
+where id is an abstract symbol standing for identifier and 1, 2, or 3 points to the symbol table entry for particular identifier.
+
+## Syntax Analysis
+
+The second phase of the compiler is syntax analysis or parsing. The parser uses the first components of the tokens produced by the lexical analyzer to create a tree-like intermediate representation that depicts the grammatical structure of the token stream. A typical representation is a syntax tree in which each interior node represents an operation and the children of the node represent the arguments of the operation.
